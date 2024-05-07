@@ -29,7 +29,7 @@ const addBookHandler = (request, h) => {
   if (typeof name === 'undefined') {
     const response = h.response({
       status: 'fail',
-      message: 'Gagal dalam menambahkan buku. Mohon isi nama buku',
+      message: 'Gagal menambahkan buku. Mohon isi nama buku',
     });
     response.code(400);
     return response;
@@ -38,7 +38,7 @@ const addBookHandler = (request, h) => {
   if (readPage > pageCount) {
     const response = h.response({
       status: 'fail',
-      message: 'Gagal dalam menambahkan buku. readPage jangan lebih besar dari pageCount',
+      message: 'Gagal menambahkan buku. readPage jangan lebih besar dari pageCount',
     });
     response.code(400);
     return response;
