@@ -148,7 +148,7 @@ const editBookByIdHandler = (request, h) => {
   if (typeof name === 'undefined') {
     const response = h.response({
       status: 'fail',
-      message: 'Gagal memperbarui buku. Tolong isi nama buku',
+      message: 'Gagal memperbarui buku. Mohon isi nama buku',
     });
     response.code(400);
     return response;
@@ -159,7 +159,7 @@ const editBookByIdHandler = (request, h) => {
     console.log('pageCount:', pageCount);
     const response = h.response({
       status: 'fail',
-      message: 'Gagal memperbarui buku. Halaman yang dibaca tidak boleh lebih besar dari jumlah halaman',
+      message: 'Gagal memperbarui buku. readPage tidak boleh lebih besar dari pageCount',
     });
     response.code(400); // Menetapkan kode status 400 untuk kesalahan ini
     return response;
