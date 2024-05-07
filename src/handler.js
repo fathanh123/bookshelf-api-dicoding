@@ -9,7 +9,7 @@ const addBookHandler = (request, h) => {
   const id = nanoid(16);
   const finished = pageCount === readPage;
   const insertedAt = new Date().toISOString();
-  const updateAt = insertedAt;
+  const updatedAt = insertedAt;
 
   const newBook = {
     id,
@@ -23,7 +23,7 @@ const addBookHandler = (request, h) => {
     finished,
     reading,
     insertedAt,
-    updateAt,
+    updatedAt,
   };
 
   if (typeof name === 'undefined') {
@@ -142,7 +142,7 @@ const editBookByIdHandler = (request, h) => {
   const {
     name, year, author, summary, publisher, pageCount, readPage, reading,
   } = request.payload;
-  const updateAt = new Date().toISOString();
+  const updatedAt = new Date().toISOString();
   const index = books.findIndex((book) => book.id === bookId);
 
   if (typeof name === 'undefined') {
@@ -151,6 +151,17 @@ const editBookByIdHandler = (request, h) => {
       message: 'Gagal memperbarui buku. Tolong isi nama buku',
     });
     response.code(400);
+    return response;
+  }
+
+  if (readPage > pageCount) {
+    console.log('readPage:', readPage);
+    console.log('pageCount:', pageCount);
+    const response = h.response({
+      status: 'fail',
+      message: 'Gagal memperbarui buku. Halaman yang dibaca tidak boleh lebih besar dari jumlah halaman',
+    });
+    response.code(400); // Menetapkan kode status 400 untuk kesalahan ini
     return response;
   }
 
@@ -165,7 +176,7 @@ const editBookByIdHandler = (request, h) => {
       pageCount,
       readPage,
       reading,
-      updateAt,
+      updatedAt,
     };
 
     const response = h.response({
